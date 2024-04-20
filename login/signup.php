@@ -4,13 +4,14 @@ include("../connection/db_connection.php");
 ?>
 
 <?php
-$errors = array('name' => '', 'email' => '', 'password' => '');
+$errors = array('name' => '', 'email' => '','role' => '', 'password' => '');
 
 if (isset($_POST['submit'])) {
     $user_mail = $_POST['email'];
     // input field validation 
     if (empty($_POST['name'])) $errors['name'] = "Name should be fulfilled.";
     if (empty($_POST['email'])) $errors['email'] = "email field can't be empty.";
+    if (empty($_POST['role'])) $errors['role'] = "role field can't be empty.";
     if (empty($_POST['password'])) $errors['password'] = "pass field can't be empty.";
     $sql = "SELECT * FROM users WHERE email='$user_mail'";
     $result = mysqli_query( $conn,$sql);
@@ -24,10 +25,12 @@ if (!array_filter($errors)) {
         $name = mysqli_real_escape_string($conn, $_POST['name']);
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
+        $role = mysqli_real_escape_string($conn, $_POST['role']);
+
 
         //insert data into table
         $hash = password_hash($password,PASSWORD_DEFAULT);
-        $sql = "INSERT INTO users(name,email,pass) VALUES('$name','$email','$hash');";
+        $sql = "INSERT INTO users(name,email,role,pass) VALUES('$name','$email','$role','$hash');";
 
         //redirect to the people page if successful
         if(mysqli_query($conn, $sql)) header('location: http://localhost/assignment_login/');
@@ -49,6 +52,11 @@ if (!array_filter($errors)) {
             <label class="h5" for="exampleInputEmail1">Email address</label>
             <input type="email" name="email" class="form-control " id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
             <div class="text-danger"><?php echo $errors['email'] ?></div>
+        </div>
+        <div class="form-group">
+            <label class="h5" for="exampleInputRole1">Role</label>
+            <input type="role" name="role" class="form-control " id="exampleInputRole1" aria-describedby="role." placeholder="Enter Role">
+            <div class="text-danger"><?php echo $errors['role'] ?></div>
         </div>
         <div class="form-group">
             <label class="h5" for="exampleInputPassword1">Password</label>

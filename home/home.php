@@ -13,7 +13,7 @@ mysqli_free_result($result);
 ?>
 
 
-<h1 class="text-center pt-4z">Institutes</h1>
+<h1 class="text-center pt-4">Institutes</h1>
 
 <div class="card-deck pt-4">
     <?php

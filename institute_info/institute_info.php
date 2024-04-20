@@ -10,11 +10,50 @@ if (isset($_POST["info"])) {
     $sql = "SELECT * FROM inst Where inst_id='$id'";
     $result = mysqli_query($conn, $sql);
     $institute = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    print_r($institute);
+    // print_r($institute);
     mysqli_free_result($result);
 };
 ?>
-
-<div>
-     <?php echo $institute[0]['inst_id'];?> 
+<h1 class="text-center pt-4">Institute`s Information</h1>
+<div class="card-deck pt-4">
+    <div class=" mx-auto ">
+        <div class="card text-center" style='background-color:skyblue'>
+            <img class="card-img-top p-2 " src="https://tribecacare.com/wp-content/uploads/2019/02/fun-activities-in-old-age-home.png" alt="Card image cap">
+            <div class="card-body">
+                <h3 class="card-title">
+                    Name: <?php echo $institute[0]['inst_name']; ?>
+                </h3>
+                <h3 class="d-inline-block">Type: </h3>
+                <h5 class="d-inline-block"> <?php echo $institute[0]['inst_type']; ?></h5><br>
+                <h3 class="d-inline-block">Total Seats:</h3>
+                <h5 class="d-inline-block"> <?php echo $institute[0]['total_seat']; ?></h5><br>
+                <h3 class="d-inline-block">Booked Seats: </h3>
+                <h5 class="d-inline-block"> <?php echo $institute[0]['booked_seat']; ?></h5><br>
+                <h3 class="d-inline-block">Available Seats: </h3>
+                <h5 class="d-inline-block"> <?php echo ($institute[0]['total_seat'] - $institute[0]['booked_seat']); ?>
+                </h5><br>
+                <h3 class="d-inline-block">cost: </h3>
+                <h5 class="d-inline-block">
+                    <?php
+                    if ($institute[0]['cost_per_month'] == 0) echo 'Free';
+                    else echo $institute[0]['cost_per_month']; ?></h5><br>
+                    <h3 class="d-inline-block">About us: </h3>
+                <h5 class="d-inline-block"> <?php echo $institute[0]['about_us']; ?></h5><br>
+                <div class="d-flex justify-content-end">
+                    <p class="card-text text-muted"> Rating: <?php echo $institute[0]['rating']; ?></p>
+                    <!-- <form action="institute_info/institute_info.php" method="POST">
+                        <input type="hidden" name="id_for_info" value="<?php echo $institute[0]['inst_id'] ?>"> -->
+                        <button class="btn btn-success ml-4" name="info" type="submit">location</button>
+                    <!-- </form> -->
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<?php include("../footer/footer.php")?>
+    <!-- <div class='mx-auto'>
+     <h1><?php echo $institute[0]['inst_name'] ?></h1>
+     <img src="https://tribecacare.com/wp-content/uploads/2019/02/fun-activities-in-old-age-home.png" alt="this is image"> 
+</div> -->
+
