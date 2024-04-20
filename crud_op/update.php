@@ -8,7 +8,7 @@ if (isset($_POST["update"])) {
     $id = mysqli_real_escape_string($conn, $_POST['id_to_update']);
 
     // get the data from the server 
-    $sql = "SELECT * FROM users Where id='$id';";
+    $sql = "SELECT * FROM users Where id='$id'";
     $result = mysqli_query($conn, $sql);
     $user = mysqli_fetch_all($result, MYSQLI_ASSOC);
     mysqli_free_result($result);

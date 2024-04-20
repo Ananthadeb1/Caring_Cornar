@@ -30,7 +30,7 @@ mysqli_free_result($result);
                         <p class="card-text"><small class="text-muted"> Rating: <?php echo $institute['rating']; ?></small></p>
 
                         <form action="institute_info/institute_info.php" method="POST">
-                            <input type="hidden" name="id_for_info" value="<?php echo $user['id'] ?>">
+                            <input type="hidden" name="id_for_info" value="<?php echo $institute['inst_id'] ?>">
                             <button class="btn btn-success" name="info" type="submit">info</button>
                         </form>
                     </div>
