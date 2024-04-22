@@ -56,9 +56,9 @@ if (!array_filter($errors)) {
 
         if(empty($newName)) $upName=$name;
         if(empty($newPass)) $upPass=$pass;
-        
+        $hash = password_hash($upPass,PASSWORD_DEFAULT);
         //update the data to the server 
-        $nSql = "UPDATE users SET name = '$upName', pass= '$upPass'
+        $nSql = "UPDATE users SET name = '$upName', pass= '$hash'
         WHERE id = '$id';";
 
         if(mysqli_query($conn, $nSql)) {  ?>

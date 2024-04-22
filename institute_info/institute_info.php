@@ -43,7 +43,7 @@ if (isset($_POST["info"])) {
                     <p class="card-text text-muted"> Rating: <?php echo $institute[0]['rating']; ?></p>
                     <!-- <form action="institute_info/institute_info.php" method="POST">
                         <input type="hidden" name="id_for_info" value="<?php echo $institute[0]['inst_id'] ?>"> -->
-                        <button class="btn btn-success ml-4" name="info" type="submit">location</button>
+                        <a class="btn btn-success ml-4" href="http://localhost/assignment_login/institute_info/main_map.php" >location</a>
                     <!-- </form> -->
                 </div>
             </div>
