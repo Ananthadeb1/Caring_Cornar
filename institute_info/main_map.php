@@ -1,4 +1,7 @@
-<?php include('../header/header.php');?>
+<?php
+include('../header/header.php');
+
+?>
 <script src="map.js"></script>
 <style>
     .contain{
@@ -16,4 +19,4 @@
     <div id='map'></div>
 </div>
 
-<script acync defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC2cDUyaElfdMXs6bGXUanTZujOGbUWR5Q&callback=loadMap"></script>
+<script acync defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCq47n_ujN_-DyhYvtZEBewE4q6-zLrZn8&callback=loadMap"></script>
