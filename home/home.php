@@ -3,6 +3,7 @@ include('banner.php');
 include('connection/db_connection.php');
 
 
+
 $sql = 'SELECT * FROM inst';
 $result = mysqli_query($conn, $sql);
 $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
@@ -21,28 +22,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedOption1 = $_POST['options1'];
         echo "The selected option is: " . $selectedOption1;
         if ($selectedOption1 != 'All') {
-                if($selectedOption2=='free'){
-                    $sql = "SELECT * FROM inst where inst_type='$selectedOption1' and cost_per_month=0";
+            if ($selectedOption2 == 'free') {
+                $sql = "SELECT * FROM inst where inst_type='$selectedOption1' and cost_per_month=0";
                 $result = mysqli_query($conn, $sql);
                 $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 mysqli_free_result($result);
-                }
-                else if($selectedOption2=='paid'){
-                    $sql = "SELECT * FROM inst where inst_type='$selectedOption1' and cost_per_month!=0";
+            } else if ($selectedOption2 == 'paid') {
+                $sql = "SELECT * FROM inst where inst_type='$selectedOption1' and cost_per_month!=0";
                 $result = mysqli_query($conn, $sql);
                 $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 mysqli_free_result($result);
-                }
-            } 
-        else {
+            } else {
+                $sql = "SELECT * FROM inst where inst_type='$selectedOption1'";
+                $result = mysqli_query($conn, $sql);
+                $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                mysqli_free_result($result);
+            }
+        } else if ($selectedOption1 == 'All') {
             if ($selectedOption2 == 'free') {
                 $sql = "SELECT * FROM inst where cost_per_month=0";
                 $result = mysqli_query($conn, $sql);
                 $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 mysqli_free_result($result);
-            }
-            else {
+            } else if ($selectedOption2 == 'paid') {
                 $sql = "SELECT * FROM inst where cost_per_month!=0";
+                $result = mysqli_query($conn, $sql);
+                $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
+                mysqli_free_result($result);
+            } else {
+                $sql = "SELECT * FROM inst where where inst_type='$selectedOption1'";
                 $result = mysqli_query($conn, $sql);
                 $institutes = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 mysqli_free_result($result);
@@ -80,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($institutes as $institute) { ?>
         <div class="col-md-4 pt-4">
             <div class="card " style='background-color:skyblue'>
-                <img class="card-img-top p-2 " src="https://tribecacare.com/wp-content/uploads/2019/02/fun-activities-in-old-age-home.png" alt="Card image cap">
+                <img class="card-img-top p-2 img-fluid" src="<?php echo $institute['image']; ?>" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">
                         Name: <?php echo $institute['inst_name']; ?>

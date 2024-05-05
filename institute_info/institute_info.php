@@ -19,7 +19,7 @@ if (isset($_POST["info"])) {
 <div class="card-deck pt-4">
     <div class=" mx-auto ">
         <div class="card text-center" style='background-color:skyblue'>
-            <img class="card-img-top p-2 " src="https://tribecacare.com/wp-content/uploads/2019/02/fun-activities-in-old-age-home.png" alt="Card image cap">
+            <img class="card-img-top p-2 " src="<?php echo $institute[0]['image']; ?>" alt="Card image cap">
             <div class="card-body">
                 <h3 class="card-title">
                     Name: <?php echo $institute[0]['inst_name']; ?>
