@@ -1,10 +1,10 @@
-<?php 
-include('../header/header.php'); 
+<?php
+include('../header/header.php');
 include("../connection/db_connection.php");
 ?>
 
 <?php
-$errors = array('name' => '', 'email' => '','role' => '', 'password' => '');
+$errors = array('name' => '', 'email' => '', 'role' => '', 'password' => '');
 
 if (isset($_POST['submit'])) {
     $user_mail = $_POST['email'];
@@ -14,9 +14,9 @@ if (isset($_POST['submit'])) {
     if (empty($_POST['role'])) $errors['role'] = "role field can't be empty.";
     if (empty($_POST['password'])) $errors['password'] = "pass field can't be empty.";
     $sql = "SELECT * FROM users WHERE email='$user_mail'";
-    $result = mysqli_query( $conn,$sql);
+    $result = mysqli_query($conn, $sql);
     $row = mysqli_num_rows($result);
-    if($row!=0) $errors['email'] = "this email is already used.";
+    if ($row != 0) $errors['email'] = "this email is already used.";
 }
 
 if (!array_filter($errors)) {
@@ -26,15 +26,15 @@ if (!array_filter($errors)) {
         $email = mysqli_real_escape_string($conn, $_POST['email']);
         $password = mysqli_real_escape_string($conn, $_POST['password']);
         $role = mysqli_real_escape_string($conn, $_POST['role']);
-
+        
 
         //insert data into table
-        $hash = password_hash($password,PASSWORD_DEFAULT);
+        $hash = password_hash($password, PASSWORD_DEFAULT);
         $sql = "INSERT INTO users(name,email,role,pass) VALUES('$name','$email','$role','$hash');";
-
         //redirect to the people page if successful
-        if(mysqli_query($conn, $sql)) header('location: http://localhost/assignment_login/');
-        else echo "query error ". mysqli_error($conn);
+        if (mysqli_query($conn, $sql)) {
+            header('location: http://localhost/assignment_login/');
+        } else echo "query error " . mysqli_error($conn);
     }
 }
 ?>
@@ -55,8 +55,11 @@ if (!array_filter($errors)) {
         </div>
         <div class="form-group">
             <label class="h5" for="exampleInputRole1">Role</label>
-            <input type="role" name="role" class="form-control " id="exampleInputRole1" aria-describedby="role." placeholder="Enter Role">
-            <div class="text-danger"><?php echo $errors['role'] ?></div>
+            <!-- for radio button  -->
+            <div class="d-flex">
+                    <input  type="radio" name="role" value="user"> User
+                    <input class="ml-2" type="radio" name="role" value="manager"> Manager
+            </div>
         </div>
         <div class="form-group">
             <label class="h5" for="exampleInputPassword1">Password</label>
@@ -64,8 +67,12 @@ if (!array_filter($errors)) {
             <div class="text-danger"><?php echo $errors['password'] ?></div>
         </div>
         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-        <p class="pt-3">Already have an account? <a href="index.php" name="login">log in</a></p>
-    </form>
+        <p class="pt-3">Already have an account? <a href="login.php" name="login">log in</a></p>
+</div>
+<!-- <input type="role" name="role" class="form-control " id="exampleInputRole1" aria-describedby="role." placeholder="Enter Role">
+            <div class="text-danger"><?php echo $errors['role'] ?></div> -->
+<!-- </div> -->
+</form>
 </div>
 
 
